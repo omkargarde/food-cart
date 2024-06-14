@@ -5,3 +5,8 @@
   display: flex;
   flex-wrap: wrap;
 }
+.filter-btn {
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+}

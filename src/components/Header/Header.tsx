@@ -1,9 +1,10 @@
+import { LOGO_URL } from "../../utils/constants";
 import "./Header.css";
-function Header() {
+export function Header() {
   return (
     <div className="header">
       <div className="logo-container">
-        <img className="logo" src="/src/assets/smoking-burger-with-lettuce-3624ld.png" alt="" />
+        <img className="logo" src={LOGO_URL} alt="logo" />
       </div>
       <nav className="nav-items">
         <ul>
@@ -16,5 +17,3 @@ function Header() {
     </div>
   );
 }
-
-export default Header;
