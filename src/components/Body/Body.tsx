@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
-import { mockRestaurantList } from "../../data/data";
 import { RestaurantListInterface } from "../../types/ResObj";
 import { SWIGGY_API_URL } from "../../utils/constants";
 import { RestaurantCard } from "../RestaurantCard/RestaurantCard";
+import { Shimmer } from "../Shimmer/Shimmer";
 import "./Body.css";
 export const Body = () => {
-  const [restaurantList, setRestaurantList] =
-    useState<RestaurantListInterface[]>(mockRestaurantList);
-  
+  const [restaurantList, setRestaurantList] = useState<RestaurantListInterface[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const fetchData = async () => {
+    setIsLoading(true);
     const data = await fetch(SWIGGY_API_URL);
     const json = await data.json();
-    setRestaurantList(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
+    setRestaurantList(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    setIsLoading(false);
   };
   useEffect(() => {
     fetchData();
   }, []);
-
+  if (isLoading) return <Shimmer />;
   return (
     <main className="body">
       <button
@@ -30,7 +31,7 @@ export const Body = () => {
       <button
         className="filter-btn"
         onClick={() => {
-          setRestaurantList(mockRestaurantList);
+          fetchData();
         }}
       >
         Reset
