@@ -1,4 +1,4 @@
-export interface ResObj {
+export interface RestaurantListInterface {
   info: {
     id: string;
     name: string;
@@ -42,7 +42,7 @@ export interface ResObj {
           }[];
         };
         textBased: Record<string, never>;
-        textExtendedBadges: {};
+        textExtendedBadges: NonNullable<unknown>;
       };
     };
     aggregatedDiscountInfoV3?: {
@@ -54,15 +54,15 @@ export interface ResObj {
       displayType: string;
       differentiatedUiMediaDetails: {
         mediaType: string;
-        lottie: {};
-        video: {};
+        lottie: NonNullable<unknown>;
+        video: NonNullable<unknown>;
       };
     };
-    reviewsSummary: {};
+    reviewsSummary: NonNullable<unknown>;
     displayType: string;
-    restaurantOfferPresentationInfo: {};
+    restaurantOfferPresentationInfo: NonNullable<unknown>;
   };
-  analytics: {};
+  analytics: NonNullable<unknown>;
   cta: {
     link: string;
     type: string;

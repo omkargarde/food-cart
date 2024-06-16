@@ -1,4 +1,4 @@
-import { ResObj } from "../../types/ResObj";
+import { RestaurantListInterface } from "../../types/ResObj";
 import { CDN_URL } from "../../utils/constants";
 import "./RestaurantCard.css";
 /* 
@@ -8,7 +8,7 @@ import "./RestaurantCard.css";
   cuisine
   delivery time
 */
-export const RestaurantCard = (props: { resData: ResObj }) => {
+export const RestaurantCard = (props: { resData: RestaurantListInterface }) => {
   const info = props?.resData?.info;
   return (
     <div className="res-card">

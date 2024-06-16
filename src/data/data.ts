@@ -1,6 +1,6 @@
-import { ResObj } from "../types/ResObj";
+import { RestaurantListInterface } from "../types/ResObj";
 
-export const resObj: ResObj[] = [
+export const mockRestaurantList: RestaurantListInterface[] = [
   {
     info: {
       id: "10575",
