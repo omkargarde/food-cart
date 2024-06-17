@@ -6,19 +6,33 @@ import { Shimmer } from "../Shimmer/Shimmer";
 import "./Body.css";
 export const Body = () => {
   const [restaurantList, setRestaurantList] = useState<RestaurantListInterface[]>([]);
+  const [filteredRestaurantList, setFilteredRestaurantList] = useState<RestaurantListInterface[]>(
+    []
+  );
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [searchText, SetSearchText] = useState<string>("");
+  const [searchText, setSearchText] = useState<string>("");
 
   const fetchData = async (): Promise<void> => {
     setIsLoading(true);
+
     const data = await fetch(SWIGGY_API_URL);
     const json = await data.json();
-    setRestaurantList(json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+    const restaurantData =
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
+
+    setRestaurantList(restaurantData);
+    setFilteredRestaurantList(restaurantData);
+
     setIsLoading(false);
   };
   useEffect((): void => {
     fetchData();
   }, []);
+  const resetData = () => {
+    setFilteredRestaurantList(restaurantList);
+    setSearchText("");
+  };
   if (isLoading) return <Shimmer />;
   return (
     <main className="body">
@@ -26,7 +40,9 @@ export const Body = () => {
         <button
           className="filter-btn"
           onClick={() => {
-            setRestaurantList(restaurantList.filter((restaurant) => restaurant.info.avgRating > 4));
+            setFilteredRestaurantList(
+              restaurantList.filter((restaurant) => restaurant.info.avgRating > 4)
+            );
           }}
         >
           Top rated restaurant
@@ -39,13 +55,15 @@ export const Body = () => {
             className="search-box"
             value={searchText}
             onChange={(e: ChangeEvent<HTMLInputElement>) => {
-              SetSearchText(e.target.value);
+              setSearchText(e.target.value.toLowerCase());
             }}
           />
           <button
             onClick={() => {
-              setRestaurantList(
-                restaurantList.filter((restaurant) => restaurant.info.name.includes(searchText))
+              setFilteredRestaurantList(
+                restaurantList.filter((restaurant) =>
+                  restaurant.info.name.toLowerCase().includes(searchText)
+                )
               );
             }}
           >
@@ -53,8 +71,7 @@ export const Body = () => {
           </button>
           <button
             onClick={() => {
-              SetSearchText("");
-              fetchData();
+              resetData();
             }}
           >
             Clear
@@ -62,7 +79,7 @@ export const Body = () => {
         </search>
       </div>
       <div className="res-container">
-        {restaurantList.map((restaurant) => {
+        {filteredRestaurantList.map((restaurant) => {
           return <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />;
         })}
       </div>
