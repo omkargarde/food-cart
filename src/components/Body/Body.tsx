@@ -4,6 +4,7 @@ import { SWIGGY_API_URL } from "../../utils/constants";
 import { RestaurantCard } from "../RestaurantCard/RestaurantCard";
 import { Shimmer } from "../Shimmer/Shimmer";
 import "./Body.css";
+
 export const Body = () => {
   const [restaurantList, setRestaurantList] = useState<RestaurantListInterface[]>([]);
   const [filteredRestaurantList, setFilteredRestaurantList] = useState<RestaurantListInterface[]>(
@@ -12,7 +13,6 @@ export const Body = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
-
   const fetchData = async (): Promise<void> => {
     setIsLoading(true);
 
