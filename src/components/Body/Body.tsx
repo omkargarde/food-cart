@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { RestaurantListInterface } from "../../types/ResObj";
-import { SWIGGY_API_URL } from "../../utils/constants";
+import { SWIGGY_API_URL_FOR_HOMEPAGE } from "../../utils/constants";
 import { RestaurantCard } from "../RestaurantCard/RestaurantCard";
 import { Shimmer } from "../Shimmer/Shimmer";
 import "./Body.css";
@@ -16,7 +17,7 @@ export const Body = () => {
   const fetchData = async (): Promise<void> => {
     setIsLoading(true);
 
-    const data = await fetch(SWIGGY_API_URL);
+    const data = await fetch(SWIGGY_API_URL_FOR_HOMEPAGE);
     const json = await data.json();
     const restaurantData =
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants;
@@ -80,7 +81,11 @@ export const Body = () => {
       </div>
       <div className="res-container">
         {filteredRestaurantList.map((restaurant) => {
-          return <RestaurantCard key={restaurant?.info?.id} resData={restaurant} />;
+          return (
+            <Link key={restaurant?.info?.id} to={"/restaurants/" + restaurant?.info?.id}>
+              <RestaurantCard resData={restaurant} />
+            </Link>
+          );
         })}
       </div>
     </main>

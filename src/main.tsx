@@ -6,6 +6,7 @@ import { About } from "./components/About/About.tsx";
 import { Body } from "./components/Body/Body.tsx";
 import { Contact } from "./components/Contact/Contact.tsx";
 import { ErrorPage } from "./components/ErrorPage/ErrorPage.tsx";
+import { RestaurantMenu } from "./components/RestaurantMenu/RestaurantMenu.tsx";
 import "./index.css";
 const appRouter = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const appRouter = createBrowserRouter([
       { path: "/", element: <Body /> },
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
+      { path: "/restaurants/:resId", element: <RestaurantMenu /> },
     ],
   },
 ]);

@@ -1,3 +1,5 @@
+import { UserClass } from "../User/UserClass";
+
 export const About = () => {
   return (
     <>
@@ -7,6 +9,7 @@ export const About = () => {
         omnis a! Expedita, voluptatibus temporibus maxime molestias asperiores illo sapiente?
         Voluptatem similique sed odio natus adipisci.
       </p>
+      <UserClass name="garde" />
     </>
   );
 };
